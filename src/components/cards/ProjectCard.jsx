@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { AppText, AppTextRu, Bio, BioRu } from "../../data/constants";
+import { AppText, AppTextRu } from "../../data/constants";
 import { LanguageContext } from "../../utils/LanguageContext";
 
 const Card = styled.div`
   width: 330px;
-  height: 490px;
+  height: 100%;
   background-color: ${({ theme }) => theme.card};
   cursor: pointer;
   border-radius: 10px;
@@ -29,14 +29,49 @@ const Image = styled.img`
   border-radius: 10px;
   box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
 `;
-const Tags = styled.div`
-  width: 100%;
+
+const TagsWrapper = styled.div`
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
   margin-top: 4px;
 `;
+
+const Tags = styled.div`
+  width: auto;
+  display: flex;
+  margin-top: 4px;
+  border-radius: 10px;
+  padding: 5px;
+  mix-blend-mode: difference;
+  &:nth-child(1) {
+    background: #8a4b4b;
+  }
+  &:nth-child(2) {
+    background: #ad845d;
+    align-items:flex-end;
+  }
+  &:nth-child(3) {
+    background: #979156;
+  }
+  &:nth-child(4) {
+    background: #83974d;
+  }
+  &:nth-child(5) {
+    background: #35746b;
+  }
+  &:nth-child(6) {
+    background: #4c5da7;
+  }
+  &:nth-child(7) {
+    background: #403c83;
+  }
+  &:nth-child(8) {
+    background: #693169;
+  }
+`;
+
+
 const Details = styled.div`
   width: 100%;
   display: flex;
@@ -103,11 +138,15 @@ const ProjectCard = ({ project }) => {
   return (
     <Card>
       <Image src={project.image} />
-      <Tags></Tags>
       <Details>
         <Title>{project.title}</Title>
         <Date>{project.date}</Date>
         <Description>{project.description}</Description>
+            <TagsWrapper>
+          {project.tags.map((tag, index) => (
+            <Tags key={index}>{tag}</Tags>
+          ))}
+        </TagsWrapper>
       </Details>
       <Members>
         {project.member?.map((member) => (
